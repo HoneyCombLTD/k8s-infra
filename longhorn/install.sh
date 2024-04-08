@@ -19,6 +19,7 @@ helm install longhorn longhorn/longhorn -n $NS               \
 --set defaultSettings.guaranteedEngineManagerCPU=5           \
 --set defaultSettings.guaranteedReplicaManagerCPU=5          \
 --set persistence.defaultClassReplicaCount=1                 \
---set defaultSettings.defaultReplicaCount=1
+--set defaultSettings.defaultReplicaCount=1                  \
+--set global.podSecurityPolicy.enabled=false
 
 echo "Longhorn Installed !!!"
