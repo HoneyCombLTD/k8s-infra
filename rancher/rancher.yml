@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cattle-system
+
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: rancher
+  namespace: cattle-system
+  labels:
+    app: rancher
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rancher
+  labels:
+    app: rancher
+subjects:
+- kind: ServiceAccount
+  name: rancher
+  namespace: cattle-system
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rancher
+  namespace: cattle-system
+  labels:
+    app: rancher
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 444
+    protocol: TCP
+    name: https-internal
+  selector:
+    app: rancher
+  type: NodePort
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rancher
+  namespace: cattle-system
+  labels:
+    app: rancher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rancher
+  template:
+    metadata:
+      labels:
+        app: rancher
+    spec:
+      serviceAccountName: rancher
+      containers:
+      - image: rancher/rancher:latest
+        imagePullPolicy: IfNotPresent
+        name: rancher
+        ports:
+        - containerPort: 80
+          protocol: TCP
