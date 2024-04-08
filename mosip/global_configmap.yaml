@@ -1,0 +1,36 @@
+## The data here is of generic interest to modules in different namespaces hence this is marked as global.
+## Replace your domain names here.
+## mosip-api-host:  External public access. (Typically required only in production rollouts).
+## mosip-api-internal-host: Internal secure access over Wireguard.
+## By default all domains and subdomains listed below point to mosip-api-internal-host. Modify this default behavior ONLY in production rollout as follows:
+##     mosip-prereg-host:  Points to mosip-api-host.
+##     mosip-pmp-host: Points to mosip-api-host.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global
+  namespace: default
+data:
+  installation-name: mosip
+  installation-domain: techno-associates.live
+  mosip-version: develop
+  mosip-api-host: api.techno-associates.live
+  mosip-api-internal-host: api-internal.techno-associates.live
+  mosip-prereg-host: prereg.techno-associates.live
+  mosip-activemq-host: activemq.techno-associates.live
+  mosip-kibana-host: kibana.techno-associates.live
+  mosip-admin-host: admin.techno-associates.live
+  mosip-regclient-host: regclient.techno-associates.live
+  mosip-minio-host: minio.techno-associates.live
+  mosip-kafka-host: kafka.techno-associates.live
+  mosip-iam-external-host: iam.techno-associates.live
+  mosip-postgres-host: postgres.techno-associates.live
+  mosip-pmp-host: pmp.techno-associates.live
+  mosip-onboarder-host: onboarder.techno-associates.live
+  mosip-resident-host: resident.techno-associates.live
+  mosip-compliance-host: compliance.techno-associates.live
+  mosip-idp-host: idp.techno-associates.live
+  mosip-smtp-host: smtp.techno-associates.live
+  is_glowroot_env: absent
+
